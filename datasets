@@ -1,0 +1,133 @@
+# Nigerian Waste Dataset
+
+A labeled image dataset of common Nigerian waste items for training object detection models in automated waste segregation systems. Developed as part of the **Sortify** project.
+
+**Dataset link:** [Roboflow Universe](https://universe.roboflow.com/rosemary-xt27v/final-year-project-ni3b6)
+**Version:** v2 (exported 2026-07-16)
+**License:** CC BY 4.0
+
+---
+
+## Overview
+
+| Property | Value |
+|---|---|
+| Total images | 1,384 |
+| Number of classes | 4 |
+| Classes | `Bottle`, `Can`, `Nylon`, `Organic Wastes` |
+| Annotation format | YOLOv8 |
+| Annotation tool | Roboflow |
+| Preprocessing | Auto-Orient, resize (stretch) to 512×512 |
+| Augmentation | None |
+| Collection location | [e.g., Ogbomosho, Oyo State, Nigeria] |
+
+## Classes
+
+| ID | Class | Description |
+|---|---|---|
+| 0 | `Bottle` | Plastic and glass bottles |
+| 1 | `Can` | Metal cans |
+| 2 | `Nylon` | Plastic nylon bags and similar flexible plastic waste |
+| 3 | `Organic Wastes` | Food scraps and other biodegradable waste |
+
+Class IDs and names are taken from `data.yaml` in the export.
+
+## Data Collection
+
+[Images were captured with camera, lighting, backgrounds, angle, distance, and the collection period.]
+
+## Labeling
+
+- **Tool:** Roboflow Annotate
+- **Bounding boxes:** Each object is enclosed in a tight box around its visible extent.
+- **Quality control:** [How labels were reviewed, if at all]
+
+## Preprocessing
+
+- **Auto-Orient:** Applied (EXIF orientation corrected)
+- **Resize:** Stretched to 512×512
+
+No augmentation was applied to this version.
+
+## Data Split
+
+The split was made in Roboflow using a 70/20/10 ratio.
+
+| Split | Folder | Images | Percentage |
+|---|---|---|---|
+| Train | `train/` | 968 | 70% |
+| Validation | `valid/` | 276 | 20% |
+| Test | `test/` | 140 | 10% |
+| **Total** | | **1,384** | **100%** |
+
+## Class Distribution
+
+| Class | Train | Valid | Test | Total |
+|---|---|---|---|---|
+| `Bottle` | [ ] | [ ] | [ ] | [ ] |
+| `Can` | [ ] | [ ] | [ ] | [ ] |
+| `Nylon` | [ ] | [ ] | [ ] | [ ] |
+| `Organic Wastes` | [ ] | [ ] | [ ] | [ ] |
+
+## Folder Structure
+
+```
+dataset/
+├── data.yaml
+├── train/
+│   ├── images/
+│   └── labels/
+├── valid/
+│   ├── images/
+│   └── labels/
+└── test/
+    ├── images/
+    └── labels/
+```
+
+## Label Format
+
+Each image has a `.txt` file with one line per object:
+
+```
+<class_id> <x_center> <y_center> <width> <height>
+```
+
+All coordinates are normalized to [0, 1].
+
+## Usage
+
+```python
+from roboflow import Roboflow
+
+rf = Roboflow(api_key="YOUR_API_KEY")
+project = rf.workspace("rosemary-xt27v").project("final-year-project-ni3b6")
+dataset = project.version(2).download("yolov8")
+```
+
+Train with YOLOv8 (nano variant):
+
+```bash
+yolo detect train data=path/to/data.yaml model=yolov8n.pt epochs=[N] imgsz=512
+```
+
+## Known Limitations
+
+- [e.g., images from a single location, so it may not generalize to other settings]
+- [e.g., class imbalance, if any]
+
+## Citation
+
+```bibtex
+@misc{nigerian_waste_dataset,
+  title  = {Nigerian Waste Dataset},
+  author = {Ojoawo, Rosemary},
+  year   = {2026},
+  url    = {https://universe.roboflow.com/rosemary-xt27v/final-year-project-ni3b6},
+  note   = {Version 2, exported 2026-07-16}
+}
+```
+
+## Contact
+
+Rosemary Ojoawo: [ojoaworosemary@gmail.com]
